@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="GSWorld: Closed-Loop Photo-Realistic Simulation Suite for Robotic Manipulation">
+  <meta name="keywords" content="Real to sim to real, Gaussian Splatting, Robotics">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    GSWorld: Closed-Loop Photo-Realistic Simulation Suite for Robotic Manipulation
+  </title>
+
+  <!-- favicon -->
+  <link rel="icon" type="image/svg+xml" href="resources/images/icon.png">
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://kit.fontawesome.com/19914a84eb.js" crossorigin="anonymous"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K8G17N1KH9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-K8G17N1KH9');
+  </script>
+</head>
+
+<body>
+<section class="hero is-link is-fullheight video" style="overflow: hidden; position:relative;">
+  <div class="hero-video" style="height: 100%; display: flex; justify-content: center; align-items: center; padding: 0; margin: 0">
+    <video playsinline autoplay muted loop style="height: 100%; aspect-ratio: 16/9; object-fit: cover">
+      <source src=" ./resources/videos/teaser_compressed.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <div class="hero-video is-hidden-tablet is-inline-block-mobile"
+    style="height: 154.28571428vw; width: 100%; min-width:64.81481481vh;min-height:100%;">
+    <video playsinline autoplay muted loop>
+      <source src=" ./resources/videos/teaser_compressed.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="overlay"></div>
+  <!-- Hero head: will stick at the top -->
+  <div class="hero-head is-hidden-mobile">
+    <!-- Removed the navbar with buttons that were originally here -->
+  </div>
+
+  <!-- Hero content: will be in the middle -->
+  <div class="hero-body" style="padding-top: 2rem; transform: translateY(-5vh);">
+    <div class="container has-text-centered">
+      <h1 class="title is-1 publication-title is-size-1-mobile" style="font-size: 12rem; ">
+        GSWorld
+      </h1>
+      <h1 class="subtitle is-1 publication-title is-size-4-mobile" style="font-size: 4rem; line-height: 1.2; margin-bottom: 2rem;">
+        Closed-Loop Photo-Realistic Simulation Suite for Robotic Manipulation
+      </h1>
+      <div style="margin-bottom: 1.5em;">
+        <div class="column has-text-centered">
+          <div class="publication-links">
+            <!-- PDF Link. -->
+            <span class="link-block">
+              <a href="./resources/gsworld.pdf" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <img src="./static/images/pdf.svg" alt="PDF" />
+                </span>
+                <span>Paper</span>
+              </a>
+            </span>
+            <span class="link-block">
+              <a href="https://arxiv.org/abs/2510.20813" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <img src="./static/images/arxiv.svg" alt="ArXiv" />
+                </span>
+                <span>arXiv</span>
+              </a>
+            </span>
+            <!-- Video Link. -->
+            <span class="link-block">
+              <a href="https://youtu.be/lBnyGjO7miE?si=4bkyAl6AhlnvAmqC" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <img src="./static/images/youtube.svg" alt="Youtube" />
+                </span>
+                <span>Video</span>
+              </a>
+            </span>
+            <!-- Code Link. -->
+            <span class="link-block">
+              <a href="https://github.com/luccachiang/GSWorld"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="fab fa-github"></i>
+                </span>
+                <span>Code</span>
+              </a>
+            </span>
+            <!-- X Link. -->
+            <span class="link-block">
+              <a href="https://x.com/LuccaChiang"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <img src="./resources/images/x-logo-white.png" alt="X" />
+                </span>
+                <span style="margin-left: 10px; margin-right: 10px;">X</span>
+              </a>
+            </span>
+          </div>
+        </div>
+        <h2 class="is-2 is-italic is-size-4-mobile" style="font-size: 2rem; opacity: 90%; font-weight: 500; margin-bottom: 0.8em; letter-spacing: 0.02em;">
+          In Submission
+        </h2>
+        <h2 class="is-2 is-size-4-mobile" style="font-size: 1.5rem; opacity: 95%; line-height: 1.6; margin-bottom: 0.3em;">
+          <a href="https://luccachiang.github.io/">Guangqi Jiang*</a>, 
+          <a href="https://www.linkedin.com/in/haoran-chang-62049b246/">Haoran Chang*</a>, 
+          <a href="https://rogerqi.github.io/">Ri-Zhao Qiu</a>, 
+          <a href="https://www.lyt0112.com/">Yutong Liang</a>,
+          <a href="https://jimazeyu.github.io/">Mazeyu Ji</a>, 
+          <a href="https://jiyuezh.github.io/">Jiyue Zhu</a>,<br>
+          <a href="https://flycooler.com/">Zhao Dong</a>, 
+          <a href="https://maureenzou.github.io/">Xueyan Zou</a>, 
+          <a href="https://xiaolonw.github.io/">Xiaolong Wang</a>
+        </h2>
+        <h2 class="is-2 is-italic is-size-4-mobile" style="font-size: 1.5rem; opacity: 90%; font-weight: 600; letter-spacing: 0.01em;">
+          <b>* Equal Contribution</b>
+        </h2>
+        <div class="has-text-centered" style="margin-top: 1.5rem; margin-bottom: 2rem;">
+          <img src="./resources/images/ucsd_logo.png" alt="UC San Diego Logo" style="height: 2.5rem; margin-right: 1rem;" class="is-hidden-mobile">
+          <img src="./resources/images/ucsd_logo.png" alt="UC San Diego Logo" style="height: 1.8rem; margin-right: 0.5rem;" class="is-hidden-tablet">
+          
+          <img src="./resources/images/ucla_logo.svg" alt="UC Los Angeles Logo" style="height: 2.5rem; margin-right: 1rem;" class="is-hidden-mobile">
+          <img src="./resources/images/ucla_logo.svg" alt="UC Los Angeles Logo" style="height: 1.8rem; margin-right: 0.5rem;" class="is-hidden-tablet">
+          
+          <img src="./resources/images/meta_logo_white.png" alt="Meta Logo" style="height: 2.5rem;" class="is-hidden-mobile">
+          <img src="./resources/images/meta_logo_white.png" alt="Meta Logo" style="height: 1.8rem;" class="is-hidden-tablet">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero footer: will stick at the bottom -->
+  <div class="hero-foot is-hidden-mobile">
+    <div class="container is-fluid is-paddingless-horizontal">
+      <div class="columns is-vcentered">
+        <div class="column is-12">
+          <nav class="tabs is-boxed is-fullwidth is-size-5">
+            <ul class="is-flex" style="width: 100%;">
+              <li style="flex: 1; text-align: center;"><a href="#sec1">Summary</a></li>
+              <li style="flex: 1; text-align: center;"><a href="#sec2">GSWorld Data</a></li>
+              <li style="flex: 1; text-align: center;"><a href="#sec2-zero-shot">Zero shot</a></li>
+              <li style="flex: 1; text-align: center;"><a href="#sec3-closed-loop">(Real2)sim2real DAgger</a></li>
+              <li style="flex: 1; text-align: center;"><a href="#sec4-visual-benchmarking">Benchmarking</a></li>
+              <li style="flex: 1; text-align: center;"><a href="#sec5-virtual-teleop">GSWorld Teleop</a></li>
+              <li style="flex: 1; text-align: center;"><a href="#sec6-vrl">Sim2real VRL</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<style>
+  .highlight-orange {
+    color: #ff6600;
+    font-weight: bold;
+  }
+  .highlight-blue {
+    color: #007bff;
+    font-weight: bold;
+  }
+  .highlight-green {
+    color: #28a745;
+    font-weight: bold;
+  }
+  
+  /* Video styling with rounded corners */
+  .video-container {
+    padding: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .rounded-video {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-height: 200px;
+  }
+  
+  .rounded-video:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+  }
+  
+  /* Responsive adjustments */
+  @media screen and (max-width: 768px) {
+    .video-container {
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .rounded-video {
+      border-radius: 12px;
+      min-height: 150px;
+    }
+    
+  }
+  
+  @media screen and (max-width: 480px) {
+    .video-container {
+      padding: 0.25rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .rounded-video {
+      border-radius: 8px;
+      min-height: 120px;
+    }
+    
+  }
+</style>
+
+
+<section class="section is-medium" id="sec0">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-four-fifths has-text-justified is-hidden-mobile">
+
+        <h2 class="subtitle">
+          <p><strong>GSWorld</strong> is a photo-realistic simulator combining 3D Gaussian Splatting with physics engines to reduce sim2real visual gap, with diverse downstream applications.
+          </p>
+          
+          <p>Creating a digital twin is getting closer to reality, but how can we maximize its utility for <strong>robotic manipulation</strong>?
+          </p>          
+        </h2>
+        
+        <h2 class="subtitle">
+        <p>To this end, we propose GSWorld and explore its applications at:
+          <ul>
+            <li>1. Learning <strong>zero-shot</strong> sim2real pixel-to-action manipulation policy with photo-realistic rendering</li>
+            <li>2. Automated high-quality <strong>DAgger</strong> data collection for adapting policies to deployment environments</li>
+            <li>3. Reproducible <strong>benchmarking</strong> of real-robot manipulation policies in simulation</li>
+            <li>4. Simulation data collection by <strong>virtual teleoperation</strong></li>
+            <li>5. Sim2real <strong>visual reinforcement learning</strong></li>
+          </ul>
+        </p>
+        </h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section is-small" style="margin-top: -3rem;" id="sec1">
+  <div class="container is-max-desktop">
+    <h2 class="title is-1 has-text-centered is-size-4-mobile">Summary Video</h2>
+    <iframe width="100%" style="aspect-ratio: 16 / 9;" src="
+      https://www.youtube.com/embed/lBnyGjO7miE?si=EMldXYyOUnecV_Ec" title="GSWorld Video"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+</section>
+
+<section class="section" id="sec2">
+  <div class="container is-max-desktop">
+    <h2 class="title is-1 has-text-centered is-size-4-mobile">GSWorld Generated Simulation Data</h2>
+    
+    <div class="columns is-centered">
+      <div class="column is-four-fifths has-text-justified is-hidden-mobile">
+        <p class="subtitle has-text-centered" style="margin-bottom: 2rem;">
+          GSWorld generates photo-realistic simulation data with multiple camera viewpoints. The videos below showcase our simulation capabilities across different manipulation tasks and robot platforms.
+        </p>
+      </div>
+    </div>
+
+    <!-- FR3 Subsection -->
+    <h3 class="title is-3 has-text-centered is-size-5-mobile" style="margin-top: 3rem; margin-bottom: 1.5rem;">FR3</h3>
+    <div class="container is-max-desktop" style="max-width: 1200px;">
+      <!-- Row 1: Right Camera Videos -->
+      <div class="columns is-multiline is-centered" style="margin-bottom: 2rem;">
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/gsworld_sim_data/fr3/align_right_cam_compatible.mp4" class="rounded-video "></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Arrange Cans</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/gsworld_sim_data/fr3/stack_right_cam_compatible.mp4" class="rounded-video "></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Stack Cans</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/gsworld_sim_data/fr3/pnp_right_cam_compatible.mp4" class="rounded-video "></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Place Box</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/gsworld_sim_data/fr3/pour_right_cam_compatible.mp4" class="rounded-video "></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Pour Sauce</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Row 2: Wrist Camera Videos -->
+      <div class="columns is-multiline is-centered">
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/gsworld_sim_data/fr3/align_wrist_cam_compatible.mp4" class="rounded-video "></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Arrange Cans</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/gsworld_sim_data/fr3/stack_wrist_cam_compatible.mp4" class="rounded-video "></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Stack Cans</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/gsworld_sim_data/fr3/pnp_wrist_cam_compatible.mp4" class="rounded-video "></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Place Box</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/gsworld_sim_data/fr3/pour_wrist_cam_compatible.mp4" class="rounded-video "></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Pour Sauce</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+    <!-- XArm6 Subsection -->
+    <h3 class="title is-3 has-text-centered is-size-5-mobile" style="margin-top: 3rem; margin-bottom: 1.5rem;">XArm6</h3>
+    <div class="container is-max-desktop" style="max-width: 1200px;">
+      <div class="columns is-multiline is-centered" style="margin-bottom: 2rem;">
+        <!-- Row 1: Right Camera videos -->
+        <div class="column is-6-tablet is-4-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/gsworld_sim_data/xarm6/right_cam_align_qt.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Align Cans</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-4-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/gsworld_sim_data/xarm6/right_cam_spoon_qt.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Tidy Table</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-4-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/gsworld_sim_data/xarm6/right_cam_banana_qt.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Grasp Banana</p>
+          </div>
+        </div>
+        
+        <!-- Row 2: Wrist Camera videos -->
+        <div class="column is-6-tablet is-4-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/gsworld_sim_data/xarm6/wrist_cam_align_qt.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Align Cans</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-4-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/gsworld_sim_data/xarm6/wrist_cam_spoon_qt.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Tidy Table</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-4-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/gsworld_sim_data/xarm6/wrist_cam_banana_qt.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Grasp Banana</p>
+          </div>
+        </div>
+      </div>
+          </div>
+  </div>
+</section>
+
+<section class="section" id="sec2-zero-shot">
+  <div class="container is-max-desktop">
+    <h2 class="title is-1 has-text-centered is-size-4-mobile">Zero-shot Sim2real Imitation</h2>
+    
+    <div class="columns is-centered">
+      <div class="column is-four-fifths has-text-justified is-hidden-mobile">
+        <p class="subtitle has-text-centered" style="margin-bottom: 2rem;">
+          Our zero-shot sim2real approach enables policies trained entirely in GSWorld simulation to perform manipulation tasks directly on real robots without any real-world fine-tuning. The videos demonstrate successful task execution across four manipulation tasks.
+        </p>
+      </div>
+    </div>
+    
+    <!-- Zero-shot Sim2real Subsection -->
+    <div class="container is-max-desktop" style="max-width: 1200px;">
+      <div class="columns is-multiline is-centered">
+        <!-- Row 1: Arrange and PnP videos -->
+        <div class="column is-6-tablet is-6-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/zero_shot_sim2real/act_dagger_arrange.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Arrange Cans</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-6-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/zero_shot_sim2real/act_dagger_pnp.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Place Box</p>
+          </div>
+        </div>
+        
+        <!-- Row 2: Pour and Stack videos -->
+        <div class="column is-6-tablet is-6-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/zero_shot_sim2real/act_dagger_pour.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Pour Sauce</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-6-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/zero_shot_sim2real/act_dagger_stack.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Stack Cans</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="sec3-closed-loop">
+  <div class="container is-max-desktop">
+    <h2 class="title is-1 has-text-centered is-size-4-mobile">Closed-Loop DAgger Results</h2>
+    
+    <div class="columns is-centered">
+      <div class="column is-four-fifths has-text-justified is-hidden-mobile">
+        <p class="subtitle has-text-centered" style="margin-bottom: 2rem;">
+          DAgger iteratively evaluate policy in GSWorld, record failure cases, recover the scene before failure, and collect corrective data, thus improving polices in a closed loop. 
+
+        </p>
+      </div>
+    </div>
+    
+    <!-- FR3 TFS Baseline Subsection -->
+    <h3 class="title is-3 has-text-centered is-size-5-mobile" style="margin-top: 2rem; margin-bottom: 1.5rem;">FR3 Sim2Real</h3>
+    <div class="container is-max-desktop" style="max-width: 1200px;">
+      <!-- Row 1: Zero-shot Videos (same as zero-shot section) -->
+      <div class="columns is-multiline is-centered" style="margin-bottom: 2rem;">
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/zero_shot_sim2real/act_dagger_arrange.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Arrange Cans</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/zero_shot_sim2real/act_dagger_pnp.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Place Box</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/zero_shot_sim2real/act_dagger_pour.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Pour Sauce</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/zero_shot_sim2real/act_dagger_stack.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Stack Cans</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Row 2: TFS Baseline Videos -->
+      <div class="columns is-multiline is-centered">
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/closed_loop_dagger/fr3_sim2real/act_tfs_arrange.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Arrange Cans</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/closed_loop_dagger/fr3_sim2real/act_tfs_pnp.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Place Box</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/closed_loop_dagger/fr3_sim2real/act_tfs_pour.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Pour Sauce</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/closed_loop_dagger/fr3_sim2real/act_tfs_stack.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Stack Cans</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- XArm6 Real2Sim2real Subsection -->
+    <h3 class="title is-3 has-text-centered is-size-5-mobile" style="margin-top: 3rem; margin-bottom: 1.5rem;">XArm6 Real2Sim2real</h3>
+    
+    <div class="columns is-centered">
+      <div class="column is-four-fifths has-text-justified is-hidden-mobile">
+        <p class="subtitle has-text-centered" style="margin-bottom: 2rem;">
+          Instead of starting from a randomly initialized policy, we start from a policy trained with real-world teleoperation data.
+        </p>
+      </div>
+    </div>
+    
+    <div class="container is-max-desktop" style="max-width: 1200px;">
+      <!-- Row 1: DAgger Videos -->
+      <div class="columns is-multiline is-centered" style="margin-bottom: 2rem;">
+        <div class="column is-6-tablet is-4-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/closed_loop_dagger/xarm6_real2sim2real/align_dagger_3x.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Align Cans</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-4-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/closed_loop_dagger/xarm6_real2sim2real/banana_dagger_2x.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Grasp Banana</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-4-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/closed_loop_dagger/xarm6_real2sim2real/spoon_dagger_3x.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Tidy Table</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Row 2: Baseline Videos -->
+      <div class="columns is-multiline is-centered">
+        <div class="column is-6-tablet is-4-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/closed_loop_dagger/xarm6_real2sim2real/align_3x.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Align Cans</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-4-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/closed_loop_dagger/xarm6_real2sim2real/banana_3x.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Grasp Banana</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-4-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/closed_loop_dagger/xarm6_real2sim2real/spoon_1x.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Tidy Table</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="sec4-visual-benchmarking">
+  <div class="container is-max-desktop">
+    <h2 class="title is-1 has-text-centered is-size-4-mobile">Visual Benchmarking</h2>
+    
+    <div class="columns is-centered">
+      <div class="column is-four-fifths has-text-justified is-hidden-mobile">
+        <p class="subtitle has-text-centered" style="margin-bottom: 2rem;">
+          We benchmark state-of-the-art manipulation policies (ACT and Pi0) in our GSWorld simulation environment. The comparison shows how different methods perform across various manipulation tasks, providing a standardized evaluation platform for robotic manipulation research.
+        </p>
+      </div>
+    </div>
+    
+    <!-- ACT Subsection -->
+    <h3 class="title is-3 has-text-centered is-size-5-mobile" style="margin-top: 2rem; margin-bottom: 1.5rem;">ACT Benchmarking</h3>
+    <div class="container is-max-desktop" style="max-width: 1200px;">
+      <!-- Row 1: ACT Videos -->
+      <div class="columns is-multiline is-centered" style="margin-bottom: 2rem;">
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/visual_benchmarking/act/act_arrange.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Arrange Cans (Sim)</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/visual_benchmarking/act/act_pnp.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Place Box (Sim)</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/visual_benchmarking/act/act_pour.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Pour Sauce (Sim)</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/visual_benchmarking/act/act_stack.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Stack Cans (Sim)</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Row 2: ACT Bench Videos -->
+      <div class="columns is-multiline is-centered">
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/visual_benchmarking/act/act_bench_arrange.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Arrange Cans (Real)</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/visual_benchmarking/act/act_bench_pnp.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Place Box (Real)</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/visual_benchmarking/act/act_bench_pour.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Pour Sauce (Real)</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/visual_benchmarking/act/act_bench_stack.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Stack Cans (Real)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Pi0 Subsection -->
+    <h3 class="title is-3 has-text-centered is-size-5-mobile" style="margin-top: 3rem; margin-bottom: 1.5rem;">Pi0 Benchmarking</h3>
+    <div class="container is-max-desktop" style="max-width: 1200px;">
+      <!-- Row 1: Pi0 Videos -->
+      <div class="columns is-multiline is-centered" style="margin-bottom: 2rem;">
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/visual_benchmarking/pi0/pi0_arrange.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Arrange Cans (Sim)</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/visual_benchmarking/pi0/pi0_pnp.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Place Box (Sim)</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/visual_benchmarking/pi0/pi0_pour.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Pour Sauce (Sim)</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/visual_benchmarking/pi0/pi0_stack.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Stack Cans (Sim)</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Row 2: Pi0 Bench Videos -->
+      <div class="columns is-multiline is-centered">
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/visual_benchmarking/pi0/pi0_bench_arrange.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Arrange Cans (Real)</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/visual_benchmarking/pi0/pi0_bench_pnp.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Place Box (Real)</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/visual_benchmarking/pi0/pi0_bench_pour.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Pour Sauce (Real)</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-3-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/visual_benchmarking/pi0/pi0_bench_stack.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Stack Cans (Real)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="sec5-virtual-teleop">
+  <div class="container is-max-desktop">
+    <h2 class="title is-1 has-text-centered is-size-4-mobile">Virtual Teleoperation</h2>
+    
+    <div class="columns is-centered">
+      <div class="column is-four-fifths has-text-justified is-hidden-mobile">
+        <p class="subtitle has-text-centered" style="margin-bottom: 2rem;">
+          GSWorld enables virtual teleoperation where human operators can control simulated robots in photo-realistic environments. This capability allows for efficient data collection and policy demonstration without requiring physical robot hardware.
+        </p>
+      </div>
+    </div>
+    
+    <div class="container is-max-desktop" style="max-width: 1200px;">
+      <div class="columns is-multiline is-centered">
+        <div class="column is-12">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/virtual_teleop/r1_teleop_6x.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">R1 Virtual Teleoperation</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="sec6-vrl">
+  <div class="container is-max-desktop">
+    <h2 class="title is-1 has-text-centered is-size-4-mobile">Zero-shot Sim2real VRL</h2>
+    
+    <div class="columns is-centered">
+      <div class="column is-four-fifths has-text-justified is-hidden-mobile">
+        <p class="subtitle has-text-centered" style="margin-bottom: 2rem;">
+          We demonstrate zero-shot sim2real transfer for visual reinforcement learning (VRL) tasks. Policies trained in GSWorld simulation using SAC (Soft Actor-Critic) are deployed directly on real robots, showing superior performance compared to training in other simulation environments.
+        </p>
+      </div>
+    </div>
+    
+    <div class="container is-max-desktop" style="max-width: 1200px;">
+      <div class="columns is-multiline is-centered">
+        <!-- Row 1: Banana videos -->
+        <div class="column is-6-tablet is-6-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/zero_shot_sim2real_vrl/banana_sac_gsworld_4x.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Grasp Banana - GSWorld</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-6-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/zero_shot_sim2real_vrl/banana_sac_maniskill_3x.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Grasp Banana - ManiSkill</p>
+          </div>
+        </div>
+        
+        <!-- Row 2: Spoon videos -->
+        <div class="column is-6-tablet is-6-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/zero_shot_sim2real_vrl/spoon_sac_gsworld_3x.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Tidy Table - GSWorld</p>
+          </div>
+        </div>
+        <div class="column is-6-tablet is-6-desktop">
+          <div class="video-container">
+            <video playsinline autoplay loop muted controls src="resources/videos/zero_shot_sim2real_vrl/spoon_sac_maniskill_3x.mp4" class="rounded-video"></video>
+            <p class="has-text-centered" style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">Tidy Table - ManiSkill</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title is-3">BibTeX</h2>
+    <pre><code>@inproceedings{jiang2025gsworld,
+title={GSWorld: Closed-Loop Photo-Realistic Simulation Suite for Robotic Manipulation},
+author={Jiang, Guangqi and Chang, Haoran and Qiu, Ri-Zhao and Liang, Yutong and Ji, Mazeyu and Zhu, Jiyue and Dong, Zhao and Zou, Xueyan and Wang, Xiaolong},
+booktitle={arXiv preprint arXiv:2510.20813},
+year={2025}
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            Website template modified from <a href="https://m3-spatial-memory.github.io/">M3</a> and <a
+              href="https://jianglongye.com/dex1b/">Dex1B</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
